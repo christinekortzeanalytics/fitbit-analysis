@@ -1,0 +1,106 @@
+---
+title: "Bellabeats Case Study"
+author: "Christine Kortze"
+date: "2026-02-05"
+output: html_document
+---
+# Bellabeat Case Study
+
+## 1. Introduction
+In this project, I explored a Fitbit dataset, specifically activity,to understand how people use their wearable device in everyday life.  My goal was to discover clear behavior patterns in their activity and then translate that information into usable insights for the Bellabeats marketing team.  Bellabeats is a women focused wearable device company. I approached this the way I naturally think: start with the data, look for routines and habits, and then interpret what those patterns might mean from a behavioral perspective.
+
+## 2. Business Task
+Bellabeat desires to better understand how consumers use smart devices so they can improve engagement and support healthier routines. Since they didn’t provide their own internal data, I used Fitbit data as a proxy for general smart‑device behavior. My task was to clean and analyze the dataset, identify meaningful trends, and summarize what those trends might imply for Bellabeat’s marketing and product strategy.
+
+## 3. Data Description
+The dataset includes daily activity records from Fitbit users, such as total steps, distance, and activity dates. The data spans March and April and includes multiple users with varying levels of consistency. For this analysis, I focused on daily steps because it’s a simple, reliable indicator of movement and routine. I also created new variables like weekday and month to explore patterns over time.
+
+Below is the code I used to load, clean, and prepare the dataset for analysis. 
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+
+```{r}
+dffitbit <- read_csv("data_raw/dailyActivity_merged.csv") %>%
+  rename(user_id = Id, raw_date = ActivityDate) %>%
+  mutate(ActivityDate = mdy(raw_date),
+         Id = as.character(user_id)) %>%
+  filter(TotalDistance > 0)
+```
+
+
+## 4. Data Cleaning and Preparation
+I  started by loading the dataset, converting dates into a proper format, and checking for missing or inconsistent values. I removed rows where total distance was zero because those entries would distort the “steps per mile” calculation. I also converted user IDs to character format to avoid R treating them as numeric values. Once the data was clean, I created new columns for month and weekday so I could analyze activity patterns across time.
+
+```{r}
+library(tidyverse)
+library(lubridate)
+
+dffitbit <- read_csv("data_raw/dailyActivity_merged.csv") %>%
+  rename(user_id = Id, raw_date = ActivityDate) %>%
+  mutate(ActivityDate = mdy(raw_date),
+         Id = as.character(user_id)) %>%
+  filter(TotalDistance > 0)
+```
+
+## 5. Analysis
+  ### 5.1 Summary Statistics
+  To get a sense of overall activity, I looked at   summary statistics for total steps.
+  
+```{r}
+summary(dffitbit$TotalSteps)
+```
+This gave me a quick view of the range of movement across users and days.
+
+  ### 5.2 Monthly Trends
+  I created a month variable to compare activity between March and April.
+  
+```{r}
+dffitbit$Month <- format(dffitbit$ActivityDate, "%m")
+aggregate(TotalSteps ~ Month, data = dffitbit, FUN = mean)
+```
+
+  Then I visualized the monthly averages:
+
+```{r}
+barplot(
+  aggregate(TotalSteps ~ Month, data = dffitbit, FUN = mean)$TotalSteps,
+  names.arg = c("March", "April"),
+  col = c("lightblue", "lightgreen"),
+  main = "Average Daily Steps by Month",
+  ylab = "Average Steps"
+)
+```
+Note: While this visualization provides a helpful snapshot of user activity during March and April, the limited date range means these results should be interpreted cautiously. Two adjacent months do not capture seasonal variation, long‑term behavior patterns, or broader trends. Additional months of data would be needed to validate whether these patterns persist across different times of year.
+  
+
+  ### 5.3 Weekday Patterns
+  This turned out to be the most interesting part of the dataset.
+  
+```{r}
+ dffitbit$Weekday <- weekdays(dffitbit$ActivityDate)
+aggregate(TotalSteps ~ Weekday, data = dffitbit, FUN = mean)
+```
+
+  And the visualization:
+  
+```{r}
+barplot(
+  aggregate(TotalSteps ~ Weekday, data = dffitbit, FUN = mean)$TotalSteps,
+  names.arg = aggregate(TotalSteps ~ Weekday, data = dffitbit, FUN = mean)$Weekday,
+  col = "lightblue",
+  main = "Average Steps by Weekday",
+  ylab = "Average Steps",
+  las = 2)
+```
+
+
+## 6. Key Insights
+A few clear patterns stood out. Monday, Wednesday, Thursday, and Saturday were consistently the highest‑activity days, averaging around 8,000 steps. Tuesday was the lowest‑activity day by a noticeable margin, even though the number of records was similar to other days. Friday and Sunday fell in the middle, which makes sense given typical routines. I also noticed that weekend users tended to log more frequently but walked less, which suggests a different type of engagement compared to weekday users. These patterns feel stable enough to trust, given the relatively balanced number of entries per day.
+
+## 7. Recommendations for Bellabeat
+Based on these patterns, Bellabeat could experiment with timing their nudges and content around natural behavior cycles. Tuesday consistently shows the lowest activity, so that might be a good day for motivational reminders or gentle encouragement. Monday is a strong activity day, which could make it a good time to launch weekly challenges or goal‑setting prompts. Weekend users behave differently, so Bellabeat might consider weekend‑specific content that feels lighter or more flexible. These ideas aren’t prescriptive — they’re simply ways Bellabeat could align their messaging with real user behavior.
+
+## 8. Conclusion
+his analysis helped me understand how people naturally move throughout the week and how those patterns could inform Bellabeat’s engagement strategy. The Fitbit dataset isn’t perfect, but it provides enough consistency to identify meaningful trends. The next step would be to validate these patterns with additional datasets or Bellabeat’s internal data, but even on its own, this analysis offers a solid starting point for understanding user behavior.
