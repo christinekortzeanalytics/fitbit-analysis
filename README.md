@@ -1,12 +1,46 @@
 # fitbit-analysis
 Google Data Analytics Capstone: Bellabeat Fitbit Case Study
-This study analyzes publicly available Fitbit smart‑device data to identify insights Bellabeat can use to improve user engagement and inform marketing strategy. The project was completed in R using R Markdown, combining data cleaning, transformation, visualization, and descriptive statistics to explore user activity patterns.
 
-Users rarely met the 10,000‑step daily goal, suggesting an opportunity for Bellabeat to support habit‑building and increase device engagement. Users were also more active on specific weekdays, highlighting opportunities for Bellabeat to time reminders, challenges, and marketing messages for maximum impact. Understanding these activity patterns can help Bellabeat design features that support consistent movement habits and strengthen long‑term device engagement.
+## Table of Contents
 
-This project uses the publicly available Fitbit Fitness Tracker Data from Kaggle, which contains daily activity, step counts, sleep logs, and intensity metrics from a limited group of users who self‑tracked their behavior. Because the dataset includes only about 30 users, the findings should be interpreted as exploratory rather than representative of the broader Fitbit population. Even with its limitations, the dataset offers valuable clues about user activity habits that can inform Bellabeat’s engagement strategy.
+- [Introduction](#introduction)
+- [Dataset](#dataset)
+- [Data-Cleaning](#data-cleaning)
+- [Analysis and Key Findings](#analysis-and-key-findings)
+- [Visualizations](#visualizations)
+- [Insights](#insights)
+- [Recommendations](#recommendations)
 
-I began the cleaning process by importing the daily activity, steps, sleep, and intensity datasets into R and reviewing each file for structure, completeness, and consistency. I removed duplicate entries, standardized column names for easier merging, and reformatted date fields to ensure consistency across all datasets. I then merged the datasets on user IDs and dates to create a unified table that allowed for consistent comparisons across activity steps.
+###Introduction
 
-I explored daily activity and step counts to uncover trends in user behavior, focusing on how often participants met activity goals and how their habits varied throughout the week. I calculated summary statistics and created visualizations to identify patterns in daily steps and active minutes. The analysis highlighted noticeable differences between high‑activity and low‑activity days, and showed that users were more active on certain weekdays while rarely reaching the 10,000‑step benchmark.
+Fitness trackers provide valuable insight into daily movement, but understanding weekly behavior patterns can be challenging. This project analyzes a publicly available Fitbit dataset to explore how user activity changes across different days of the week.
+To explore these questions, I used a publicly available dataset from Kaggle.
 
+###Dataset
+
+The dataset, sourced from Kaggle, contains daily step counts from Fitbit users. Its structure makes it well‑suited for examining how activity levels shift across different days of the week.”
+Before analyzing the data, I prepared the dataset by checking for quality issues and ensuring it was ready for exploration.
+
+###Data Cleaning
+
+I reviewed the dataset for missing values, duplicates, and formatting inconsistencies. Once the data was validated and cleaned, it was ready for analysis.”
+Once the dataset was cleaned and validated, I moved on to analyzing daily activity patterns.
+
+###Analysis & Key Findings
+
+I reviewed the dataset for missing values, duplicates, and formatting inconsistencies. Once the data was validated and cleaned, it was ready for analysis.”
+To better illustrate these patterns, I created several visualizations that highlight how activity levels changed across the week.
+
+###Visualizations
+
+I developed visualizations to illustrate how daily step counts varied across the week. These charts clearly highlighted the differences between high‑activity and low‑activity days.
+These visual patterns helped reveal clear differences in activity levels across the week.
+
+###Insights
+
+These patterns suggest that users follow a weekly rhythm in their activity. Some days consistently show higher movement, while others tend to be lower, indicating opportunities to support users on less active days.
+These insights point to a few opportunities for supporting users in building more consistent activity habits.
+
+###Recommendations
+
+These patterns indicate a clear weekly rhythm in user behavior. Certain days consistently show higher activity, while others reflect lower movement, highlighting opportunities to better support users on low‑activity days.
